@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "481771187495",
+    "project_id": "bluekite-7910f",
+    "storage_bucket": "bluekite-7910f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:481771187495:android:6b91b74ec2d84b8878cd02",
+        "android_client_info": {
+          "package_name": "com.bluekiteapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsuuUeUZ-euGO6ToUEppYP4PLMHkssLMs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:481771187495:android:f6ccfda577af0c2778cd02",
+        "android_client_info": {
+          "package_name": "com.bluekitevendorapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsuuUeUZ-euGO6ToUEppYP4PLMHkssLMs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
