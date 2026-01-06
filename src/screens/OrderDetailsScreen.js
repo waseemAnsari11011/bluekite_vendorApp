@@ -29,7 +29,12 @@ const OrderDetailsScreen = ({ route, navigation }) => {
       // order.orderId is the custom string ID, but backend route typically expects the custom ID for orderId param
       // as seen in controller: findOne({ orderId: orderId, ... })
       
-      const url = `/order/status/${order.orderId}/vendor/${vendorId}`;
+      // Use the vendor ID from the order object itself if available (this is the Supplier's ID)
+      // This handles the case where an Admin (logged in with AdminID) is updating a Supplier's order.
+      // The backend expects the ID of the vendor IN the order.
+      const targetVendorId = initialVendorOrderInfo.vendor?._id || vendorId;
+
+      const url = `/order/status/${order.orderId}/vendor/${targetVendorId}`;
       console.log(`Debug: Calling PUT ${url} with status ${newStatus}`);
       
       const response = await api.put(url, {

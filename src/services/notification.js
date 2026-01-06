@@ -7,6 +7,7 @@ import {
   getInitialNotification,
   AuthorizationStatus,
 } from '@react-native-firebase/messaging';
+import notifee, { AndroidImportance } from '@notifee/react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from './api';
 
@@ -24,6 +25,9 @@ export async function requestUserPermission() {
     }
   }
 
+  // Create High Importance Channel
+  await createNotificationChannel();
+
   const authStatus = await requestPermission(messaging);
   const enabled =
     authStatus === AuthorizationStatus.AUTHORIZED ||
@@ -33,6 +37,17 @@ export async function requestUserPermission() {
     console.log('Authorization status:', authStatus);
     getFcmToken();
   }
+}
+
+async function createNotificationChannel() {
+  await notifee.createChannel({
+    id: 'vendor_alert_channel',
+    name: 'Vendor Alerts',
+    importance: AndroidImportance.HIGH,
+    vibration: true,
+    sound: 'default',
+  });
+  console.log('Vendor Alert Channel Created');
 }
 
 export async function getFcmToken() {
@@ -87,5 +102,18 @@ export const notificationListener = () => {
 
   onMessage(messaging, async remoteMessage => {
     console.log('A new FCM message arrived!', JSON.stringify(remoteMessage));
+    await notifee.displayNotification({
+      title: remoteMessage.notification?.title,
+      body: remoteMessage.notification?.body,
+      data: remoteMessage.data,
+      android: {
+        channelId: 'vendor_alert_channel',
+        priority: AndroidImportance.HIGH, 
+        sound: 'default',
+        pressAction: {
+          id: 'default',
+        },
+      },
+    });
   });
 };
